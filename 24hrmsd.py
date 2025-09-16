@@ -10,6 +10,9 @@ from obspy import read, Stream
 # filtering to only select channel and year for combinations
 current_year = input("What year of data do you want to use? ")
 channel_input = input("What channel do you want to combine? 1 => Z component; 2 => N component; 3 => E component: ")
+
+# STATION INPUTS
+#### Change stations to your liking
 station_input = input("What station data do you want to merge? 1 => OHU1; 2 => OHG1; 3 => OHW1: ")
 if station_input == "1":
     station = "OHU1"
@@ -23,6 +26,8 @@ elif station_input == "3":
 else:
     print("Input not recognized, try again")
 
+# Setting directory path
+### CHANGE 4 YOUR SYSTEM
 directory_path = r"N:\SeisSection\Noble\PAS2MSD"  # Current directory
 
 # Get all entries (files and directories)
@@ -95,7 +100,6 @@ for d in range(min_day, (max_day + 1)):
 
     filtered_files = [f for f in file_names if fnmatch.fnmatch(f, pattern)]
 
-        # Use the constructed pattern in fnmatch.fnmatch
         # This will find files that match the exact year, day, and hour,
         # followed by any characters, then the fixed suffix.
     day_hour_files = [f for f in filtered_files if fnmatch.fnmatch(f, pattern)]
@@ -110,7 +114,6 @@ for d in range(min_day, (max_day + 1)):
         try:
             print(f"Attempting to read: {full_file_path}") # For debugging
 
-                # Read the MiniSEED file. This returns an ObsPy Stream object.
             st = read(full_file_path)               
             daily_stream += st # Append the traces from this file to the daily stream
             print(f"  - Read {file} ({len(st)} traces)")
@@ -130,6 +133,7 @@ for d in range(min_day, (max_day + 1)):
         print(f"Merge complete. Stream now has {len(daily_stream)} traces after merge.")
 
         # Define the output filename for the 24-hour file
+        # CHANGE 4 YOUR SYSTEM
         if channel_input == '1':
             output_filename = f"{station}.OH.--.HHZ.{current_year}.{d:03d}.msd"
         elif channel_input == '2':
@@ -150,3 +154,4 @@ for d in range(min_day, (max_day + 1)):
 
     except Exception as e:
         print(f"ERROR: Failed to merge or save stream for day {d:03d}: {e}")
+
