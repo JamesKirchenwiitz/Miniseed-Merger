@@ -1,0 +1,5 @@
+- Code is free to use.
+- Code will need to be tailored to specific computer systems (I have commented where change is needed)
+   - Input directory path will need to be changed
+   - Output directory path will need to be changed
+- Initial inputs will need to change, I have them tailored to the three ohio stations I used.
